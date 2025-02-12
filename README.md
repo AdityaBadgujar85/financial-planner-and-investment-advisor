@@ -46,7 +46,7 @@ Financial Planner & Investment Advisor is a comprehensive application designed t
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone [https://github.com/your-username/financial-planner.git](https://github.com/AdityaBadgujar85/financial-planner-and-investment-advisor.git)
+   git clone https://github.com/AdityaBadgujar85/financial-planner-and-investment-advisor.git
    ```
 2. Navigate to the project directory:
    ```sh
