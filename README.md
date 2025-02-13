@@ -50,7 +50,7 @@ Financial Planner & Investment Advisor is a comprehensive application designed t
    ```
 2. Navigate to the project directory:
    ```sh
-   cd financial-planner
+   cd financial_planner
    ```
 3. Install dependencies:
    ```sh
