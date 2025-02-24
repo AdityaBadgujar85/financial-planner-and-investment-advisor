@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication - Financial Advisor</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: #ffffff; 
+            background: url('HD-wallpaper-what-are-flag-patterns-on-forex-charts.jpg') no-repeat center center fixed; 
+            background-size: cover; 
+        }
+        nav { 
+            background: white; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+            padding: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            margin: 0; 
+            padding: 0; 
+        }
+        nav ul li { 
+            margin-left: 20px; 
+        }
+        nav ul li a { 
+            text-decoration: none; 
+            color: #333; 
+            padding: 5px 10px; 
+            transition: color 0.3s; 
+        }
+        nav ul li a:hover { 
+            color: #007bff; 
+        }
+       
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px); /* Adjust height to account for the nav bar */
+        }
+
+        .form-container { 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 20px; 
+            border-radius: 10px; 
+            width: 300px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            text-align: center; 
+        }
+        .form-container h2 { 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        .form-container input { 
+            box-sizing: border-box; 
+            width: calc(100% - 10px); 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+        }
+        .form-container button { 
+            width: calc(100% - 10px); 
+            padding: 10px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            margin: 10px 0 
+        }
+        .form-container button:hover { 
+            background: #0056b3; 
+        }
+
+        /* Styles for the main page */
+        .main { 
+            min-height: calc(100vh - 60px); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-direction: column; /* Stack links vertically */
+            text-align: center; /* Center text */
+        }
+        .links { 
+            display: flex; 
+            flex-direction: column; /* Stack links vertically */
+            align-items: center; /* Center links horizontally */
+        }
+        .links a { 
+            display: block; 
+            text-decoration: none; 
+            color: rgb(0, 0, 0); 
+            background: #ffffff; 
+            padding: 20px 30px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            width: 200px; 
+            transition: background 0.3s; 
+        }
+        .links a:hover { 
+            background: #a3a3a3; 
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Financial Advisor</div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#login_signup" onclick="showLogin()">Login</a></li>
+            <li><a href="#login_signup" onclick="showSignup()">Signup</a></li>
+        </ul>
+    </nav>
+    
+    <div class="main-container" id="login_signup">
+        <div class="form-container" id="signup">
+            <h2>Signup</h2>
+            <input type="text" id="signup-username" placeholder="Username" required />
+            <input type="email" id="signup-email" placeholder="Email" required />
+            <input type="password" id="signup-password" placeholder="Password" required />
+            <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required />
+            <button onclick="signup()">Signup</button>
+        </div>
+
+        <div class="form-container" id="login" style="display:none;">
+            <h2>Login</h2>
+            <input type="text" id="login-username" placeholder="Username" required />
+            <input type="password" id="login-password" placeholder="Password" required />
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div class="main" id="mainPage" style="display:none;">
+        <div class="links">
+            <a href="#financial-planner">Financial Advisor</a>
+            <a href="#budget-planner">Budget Planner</a>
+        </div>
+    </div>
+
+    <script>
+        let userData = {};
+
+        function showSignup() {
+            document.getElementById("signup").style.display = "block";
+            document.getElementById("login").style.display = "none";
+        }
+
+        function showLogin() {
+            document.getElementById("signup").style.display = "none";
+            document.getElementById("login").style.display = "block";
+        }
+
+        function signup() {
+            const username = document.getElementById("signup-username").value.trim();
+            const email = document.getElementById("signup-email").value.trim();
+            const password = document.getElementById("signup-password").value;
+            const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+            // Check for empty fields
+            if (!username || !email || !password || !confirmPassword) {
+                alert("All fields are required!");
+                return;
+            }
+
+            // Validate email format
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Store user data
+            userData = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            alert("Signup successful! You can now login.");
+            showLogin(); // Switch to login form
+        }
+
+        function login() {
+            const username = document.getElementById("login-username").value.trim();
+            const password = document.getElementById("login-password").value;
+
+            // Check for empty fields
+            if (!username || !password) {
+                alert("All fields are required!");
+                return;
+            }
+
+            // Check if the entered credentials match the stored user data
+            if (username === userData.username && password === userData.password) {
+                alert("Login successful!");
+                document.getElementById("login_signup").style.display = "none"; // Hide login/signup
+                document.getElementById("mainPage").style.display = "flex"; // Show main page
+            } else {
+                alert("Invalid username or password.");
+            }
+        }
+    </script>
+</body>
+</html>
